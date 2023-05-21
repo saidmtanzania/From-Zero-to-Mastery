@@ -1,18 +1,29 @@
-import ExpenseItem from "./components/ExpenseItem";
+import Expenses from "./components/Expenses";
 function App() {
+  const expenses = [
+    {
+      id: "e1",
+      title: "Playful Joy",
+      amount: 450000,
+      date: new Date(2023, 3, 25),
+    },
+    {
+      id: "e2",
+      title: "Boom SMS",
+      amount: 505750,
+      date: new Date(2023, 5, 4),
+    },
+    {
+      id: "e3",
+      title: "Bolt",
+      amount: 250000,
+      date: new Date(2023, 7, 3),
+    },
+  ];
   return (
     <>
       <h1>Lets Get started</h1>
-      <ExpenseItem
-        expenseDate={new Date(2023, 3, 25)}
-        expenseTitle={"Playful Joy"}
-        expenseAmount={450000}
-      />
-      <ExpenseItem
-        expenseDate={new Date(2023, 6, 3)}
-        expenseTitle={"Boom SMS"}
-        expenseAmount={505750}
-      />
+      <Expenses items={expenses} />
     </>
   );
 }
