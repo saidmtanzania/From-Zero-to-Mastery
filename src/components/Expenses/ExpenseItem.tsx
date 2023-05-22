@@ -2,10 +2,12 @@
 import ExpenseDate from "./ExpenseDate";
 import Card from "../UI/Card";
 import "./ExpenseItem.css";
+
 function ExpensesItem(props: any) {
   const clickHandler = () => {
     console.log("Clicked!!!");
   };
+
   const { expenseDate, expenseTitle, expenseAmount } = props;
   return (
     <Card className="expense-item">
