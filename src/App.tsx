@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
 
@@ -22,9 +23,17 @@ function App() {
       date: new Date(2023, 7, 3),
     },
   ];
+
+  const addExpenseHandler = (expense: any) => {
+    console.log("In App.tsx");
+    expenses.push(expense);
+    console.log(expense);
+    console.log(expenses);
+  };
+
   return (
     <>
-      <NewExpense />
+      <NewExpense addedExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </>
   );
