@@ -4,9 +4,9 @@ import "./ExpenseForm.css";
 
 function ExpenseForm(props: any) {
   const [state, setState] = useState({
-    Title: "",
-    Amount: "",
-    Date: "",
+    title: "",
+    amount: "",
+    date: "",
   });
 
   const min = 0.01;
@@ -21,17 +21,17 @@ function ExpenseForm(props: any) {
       if (id === "title") {
         return {
           ...preVal,
-          Title: value,
+          title: value,
         };
       } else if (id === "amount") {
         return {
           ...preVal,
-          Amount: value,
+          amount: value,
         };
       } else if (id === "date") {
         return {
           ...preVal,
-          Date: value,
+          date: value,
         };
       }
     });
@@ -39,15 +39,15 @@ function ExpenseForm(props: any) {
 
   const submitHandler = (event: any) => {
     event.preventDefault();
-    if (state.Title === "" || state.Amount === "" || state.Date === "") {
+    if (state.title === "" || state.amount === "" || state.date === "") {
       return false;
     }
     const expenseData: any = state;
     props.onDataSave(expenseData);
     setState({
-      Title: "",
-      Amount: "",
-      Date: "",
+      title: "",
+      amount: "",
+      date: "",
     });
   };
 
@@ -59,8 +59,9 @@ function ExpenseForm(props: any) {
           <input
             type="text"
             id="title"
-            value={state.Title}
+            value={state.title}
             onChange={stateChangeHandler}
+            required
           />
         </div>
 
@@ -71,8 +72,9 @@ function ExpenseForm(props: any) {
             id="amount"
             min={min}
             step={step}
-            value={state.Amount}
+            value={state.amount}
             onChange={stateChangeHandler}
+            required
           />
         </div>
 
@@ -83,8 +85,9 @@ function ExpenseForm(props: any) {
             id="date"
             min={minDate}
             max={maxDate}
-            value={state.Date}
+            value={state.date}
             onChange={stateChangeHandler}
+            required
           />
         </div>
       </div>
