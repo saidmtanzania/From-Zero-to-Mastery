@@ -8,13 +8,13 @@ const expensesData = [
     id: "e1",
     title: "Playful Joy",
     amount: 450000,
-    date: new Date(2023, 3, 25),
+    date: new Date(2021, 3, 25),
   },
   {
     id: "e2",
     title: "Boom SMS",
     amount: 505750,
-    date: new Date(2023, 5, 4),
+    date: new Date(2022, 5, 4),
   },
   {
     id: "e3",
