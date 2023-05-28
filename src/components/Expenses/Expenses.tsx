@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ExpenseList from "./ExpenseList";
-import Card from "../UI/Card";
-import "./Expenses.css";
 import { useState } from "react";
+import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpenseList from "./ExpenseList";
+import ExpensesChart from "./ExpensesChart";
+import "./Expenses.css";
 
 function Expenses(props: any) {
   const [filteredYear, setFilteredYear] = useState("All");
@@ -26,6 +27,7 @@ function Expenses(props: any) {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
+      <ExpensesChart expenses={filteredExpenses} />
       <ExpenseList items={filteredExpenses} />
     </Card>
   );
