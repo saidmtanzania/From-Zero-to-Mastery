@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./CourseGoalItem.css";
 
 function CourseGoalItem(props: any) {
