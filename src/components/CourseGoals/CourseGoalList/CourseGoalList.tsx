@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CourseGoalItem from "../CourseGoalItem/CourseGoalItem";
-import "./CourseGoalList.css";
+import styles from "./CourseGoalList.module.css";
 
 function CourseGoalList(props: any) {
   return (
-    <ul className="goal-list">
+    <ul className={styles["goal-list"]}>
       {props.items.map((goal: any) => (
         <CourseGoalItem
           key={goal.id}
