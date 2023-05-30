@@ -9,17 +9,56 @@ function AddUSer(props: any) {
     username: "",
     age: "",
   });
+
+  const userInputHandler = (event: any) => {
+    const { id, value } = event.target;
+    setState((preVal: any) => {
+      if (id === "username") {
+        return {
+          ...preVal,
+          username: value,
+        };
+      } else if (id === "age") {
+        return {
+          ...preVal,
+          age: value,
+        };
+      }
+    });
+  };
+
   const addUserHandler = (event: any) => {
     event.preventDefault();
+    if (state.username.trim().length === 0 || state.age.trim().length === 0) {
+      return;
+    }
+    if (+state.age < 1) {
+      return;
+    }
+    console.log(state.username.trim());
+    setState({
+      username: "",
+      age: "",
+    });
   };
 
   return (
     <Card className={styles.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username ">Username</label>
-        <input type="text" id="username" />
+        <input
+          type="text"
+          id="username"
+          value={state.username}
+          onChange={userInputHandler}
+        />
         <label htmlFor="age">Age (Years)</label>
-        <input type="number" id="age" />
+        <input
+          type="number"
+          id="age"
+          value={state.age}
+          onChange={userInputHandler}
+        />
         <Button type="submit">Add User</Button>
       </form>
     </Card>
