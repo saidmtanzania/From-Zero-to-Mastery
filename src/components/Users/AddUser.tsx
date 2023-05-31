@@ -2,9 +2,11 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
+import ErrorModal from "../UI/ErrorModal";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function AddUSer(props: any) {
+  const [dataInvalid, setDataInvalid] = useState(false);
   const [state, setState] = useState({
     username: "",
     age: "",
@@ -12,6 +14,7 @@ function AddUSer(props: any) {
 
   const userInputHandler = (event: any) => {
     const { id, value } = event.target;
+
     setState((preVal: any) => {
       if (id === "username") {
         return {
@@ -29,13 +32,16 @@ function AddUSer(props: any) {
 
   const addUserHandler = (event: any) => {
     event.preventDefault();
+
     if (state.username.trim().length === 0 || state.age.trim().length === 0) {
-      return;
+      return setDataInvalid(true);
     }
     if (+state.age < 1) {
-      return;
+      return setDataInvalid(true);
     }
-    console.log(state.username.trim());
+
+    props.onAddUser(state.username.trim(), state.age);
+
     setState({
       username: "",
       age: "",
@@ -60,6 +66,9 @@ function AddUSer(props: any) {
           onChange={userInputHandler}
         />
         <Button type="submit">Add User</Button>
+        {dataInvalid && (
+          <ErrorModal message="Invalid data. Please try again." />
+        )}
       </form>
     </Card>
   );
