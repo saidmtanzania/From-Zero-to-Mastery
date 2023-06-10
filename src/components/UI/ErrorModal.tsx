@@ -1,22 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import Card from "./Card";
 import styles from "./ErrorModal.module.css";
+import Button from "./Button";
 
 function ErrorModal(props: any) {
-  const [showModal, setShowModal] = useState(true);
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   return (
-    <div className={showModal ? styles.modal : styles.hidden}>
-      <div className={styles["modal-content"]}>
-        <p className={styles["modal-message"]}>{props.message}</p>
-        <button className={styles["modal-button"]} onClick={closeModal}>
-          Close
-        </button>
-      </div>
+    <div>
+      <div className={styles.backdrop} onClick={props.onConfirm} />
+      <Card className={styles.modal}>
+        <header className={styles.header}>
+          <h2>{props.title}</h2>
+        </header>
+        <div className={styles.content}>
+          <p>{props.message}</p>
+        </div>
+        <footer className={styles.actions}>
+          <Button onClick={props.onConfirm}>Okay</Button>
+        </footer>
+      </Card>
     </div>
   );
 }

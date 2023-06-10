@@ -4,74 +4,83 @@ import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function AddUSer(props: any) {
-  const [dataInvalid, setDataInvalid] = useState(false);
-  const [state, setState] = useState({
-    username: "",
-    age: "",
-  });
+interface Error {
+  title: string;
+  message: string;
+}
 
-  const userInputHandler = (event: any) => {
-    const { id, value } = event.target;
+const AddUser = (props: {
+  onAddUser: (username: string, age: string) => void;
+}) => {
+  const [enteredUsername, setEnteredUsername] = useState("");
+  const [enteredAge, setEnteredAge] = useState("");
+  const [error, setError] = useState<Error | null>(null);
 
-    setState((preVal: any) => {
-      if (id === "username") {
-        return {
-          ...preVal,
-          username: value,
-        };
-      } else if (id === "age") {
-        return {
-          ...preVal,
-          age: value,
-        };
-      }
-    });
+  const addUserHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age (non-empty values).",
+      });
+      return;
+    }
+    if (+enteredAge < 1) {
+      setError({
+        title: "Invalid age",
+        message: "Please enter a valid age (> 0).",
+      });
+      return;
+    }
+    props.onAddUser(enteredUsername, enteredAge);
+    setEnteredUsername("");
+    setEnteredAge("");
   };
 
-  const addUserHandler = (event: any) => {
-    event.preventDefault();
+  const usernameChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setEnteredUsername(event.target.value);
+  };
 
-    if (state.username.trim().length === 0 || state.age.trim().length === 0) {
-      return setDataInvalid(true);
-    }
-    if (+state.age < 1) {
-      return setDataInvalid(true);
-    }
+  const ageChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEnteredAge(event.target.value);
+  };
 
-    props.onAddUser(state.username.trim(), state.age);
-
-    setState({
-      username: "",
-      age: "",
-    });
+  const errorHandler = () => {
+    setError(null);
   };
 
   return (
-    <Card className={styles.input}>
-      <form onSubmit={addUserHandler}>
-        <label htmlFor="username ">Username</label>
-        <input
-          type="text"
-          id="username"
-          value={state.username}
-          onChange={userInputHandler}
+    <div>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
         />
-        <label htmlFor="age">Age (Years)</label>
-        <input
-          type="number"
-          id="age"
-          value={state.age}
-          onChange={userInputHandler}
-        />
-        <Button type="submit">Add User</Button>
-        {dataInvalid && (
-          <ErrorModal message="Invalid data. Please try again." />
-        )}
-      </form>
-    </Card>
+      )}
+      <Card className={styles.input}>
+        <form onSubmit={addUserHandler}>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            value={enteredUsername}
+            onChange={usernameChangeHandler}
+          />
+          <label htmlFor="age">Age (Years)</label>
+          <input
+            id="age"
+            type="number"
+            value={enteredAge}
+            onChange={ageChangeHandler}
+          />
+          <Button type="submit">Add User</Button>
+        </form>
+      </Card>
+    </div>
   );
-}
+};
 
-export default AddUSer;
+export default AddUser;
