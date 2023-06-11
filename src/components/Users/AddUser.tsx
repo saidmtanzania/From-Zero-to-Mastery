@@ -53,7 +53,7 @@ const AddUser = (props: {
   };
 
   return (
-    // <> this is built in wrapper also we can use Fragment
+    // <> this is built in wrapper also we can use React.Fragment
     <Wrapper>
       {error && (
         <ErrorModal
