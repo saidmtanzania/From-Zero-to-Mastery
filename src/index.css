@@ -12,6 +12,7 @@
   border: 0;
   outline: 0;
   vertical-align: baseline;
+  box-sizing: border-box;
   /* background: transparent; */
   text-decoration: none;
   list-style: none;
@@ -19,7 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 html {
-  background: #1f1f1f;
+  background: #fff;
   font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -29,4 +30,7 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   font-weight: 300;
+}
+main {
+  margin-top: 6rem;
 }

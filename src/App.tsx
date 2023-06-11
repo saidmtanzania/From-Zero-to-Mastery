@@ -1,27 +1,39 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
-import AddUSer from "./components/Users/AddUser";
-import UserList from "./components/Users/UserList";
+import React, { useState, useEffect } from "react";
 
-interface User {
-  key: string;
-  name: string;
-  age: string;
-}
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
+import MainHeader from "./components/MainHeader/MainHeader";
+
 function App() {
-  const [usersList, setUsersList] = useState<User[]>([]);
-  const key = Math.floor(Math.random() * 100).toString();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const addUserHandler = (uName: string, uAge: string) => {
-    setUsersList((prevUserList: User[]) => {
-      return [...prevUserList, { key: key, name: uName.trim(), age: uAge }];
-    });
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storedUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    localStorage.setItem("isLoggedIn", "1");
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
   };
 
   return (
     <React.Fragment>
-      <AddUSer onAddUser={addUserHandler} />
-      <UserList users={usersList} />
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
     </React.Fragment>
   );
 }
