@@ -53,6 +53,7 @@ const AddUser = (props: {
   };
 
   return (
+    // <> this is built in wrapper also we can use Fragment
     <Wrapper>
       {error && (
         <ErrorModal
@@ -80,7 +81,7 @@ const AddUser = (props: {
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-    </Wrapper>
+    </Wrapper> //</>
   );
 };
 
