@@ -7,9 +7,16 @@ import Button from "../UI/Button/Button";
 
 const Login = (props: any) => {
   const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState();
+  // const [emailIsValid, setEmailIsValid] = useState();
+  const [emailIsValid, setEmailIsValid] = useState<boolean | undefined>(
+    undefined
+  );
+  const [passwordIsValid, setPasswordIsValid] = useState<boolean | undefined>(
+    undefined
+  );
+
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [passwordIsValid, setPasswordIsValid] = useState();
+  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const emailChangeHandler = (event: any) => {
